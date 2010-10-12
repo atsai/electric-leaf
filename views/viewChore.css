@@ -1,0 +1,27 @@
+div
+{
+    font-family:arial;
+}
+
+div#top u1 li
+{
+    display:inline-block;
+}
+div#bottom
+{
+    float:right;
+}
+
+div#bottom u1 li
+{
+    display:inline-block;
+    font-size:10px;
+}
+
+img.logo
+{
+    float:left;
+    width:40px;
+    height:40px;
+}
+
