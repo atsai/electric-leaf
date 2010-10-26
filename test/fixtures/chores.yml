@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  description: MyString
+  deadline: 2010-10-26 12:09:11
+  is_recurring: false
+  is_rotating: false
+
+two:
+  title: MyString
+  description: MyString
+  deadline: 2010-10-26 12:09:11
+  is_recurring: false
+  is_rotating: false

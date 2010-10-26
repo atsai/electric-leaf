@@ -1,0 +1,28 @@
+<p>
+  <b>Title:</b>
+  <%=h @chore.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @chore.description %>
+</p>
+
+<p>
+  <b>Deadline:</b>
+  <%=h @chore.deadline %>
+</p>
+
+<p>
+  <b>Is recurring:</b>
+  <%=h @chore.is_recurring %>
+</p>
+
+<p>
+  <b>Is rotating:</b>
+  <%=h @chore.is_rotating %>
+</p>
+
+
+<%= link_to 'Edit', edit_chore_path(@chore) %> |
+<%= link_to 'Back', chores_path %>

@@ -1,0 +1,28 @@
+<h1>Listing chores</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Deadline</th>
+    <th>Is recurring</th>
+    <th>Is rotating</th>
+  </tr>
+
+<% @chores.each do |chore| %>
+  <tr>
+    <td><%=h chore.title %></td>
+    <td><%=h chore.description %></td>
+    <td><%=h chore.deadline %></td>
+    <td><%=h chore.is_recurring %></td>
+    <td><%=h chore.is_rotating %></td>
+    <td><%= link_to 'Show', chore %></td>
+    <td><%= link_to 'Edit', edit_chore_path(chore) %></td>
+    <td><%= link_to 'Destroy', chore, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New chore', new_chore_path %>

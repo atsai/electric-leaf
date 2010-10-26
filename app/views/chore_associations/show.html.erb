@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @chore_association.user_id %>
+</p>
+
+<p>
+  <b>Chore:</b>
+  <%=h @chore_association.chore_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_chore_association_path(@chore_association) %> |
+<%= link_to 'Back', chore_associations_path %>

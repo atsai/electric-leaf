@@ -1,0 +1,20 @@
+<h1>Editing chore_association</h1>
+
+<% form_for(@chore_association) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :chore_id %><br />
+    <%= f.text_field :chore_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @chore_association %> |
+<%= link_to 'Back', chore_associations_path %>

@@ -1,0 +1,22 @@
+<h1>Listing chore_associations</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Chore</th>
+  </tr>
+
+<% @chore_associations.each do |chore_association| %>
+  <tr>
+    <td><%=h chore_association.user_id %></td>
+    <td><%=h chore_association.chore_id %></td>
+    <td><%= link_to 'Show', chore_association %></td>
+    <td><%= link_to 'Edit', edit_chore_association_path(chore_association) %></td>
+    <td><%= link_to 'Destroy', chore_association, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New chore_association', new_chore_association_path %>
