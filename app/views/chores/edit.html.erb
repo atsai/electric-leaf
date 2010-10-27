@@ -9,18 +9,18 @@
   </p>
   <p>
     <%= f.label :description %><br />
-    <%= f.text_field :description %>
+    <%= f.text_area :description %>
   </p>
   <p>
     <%= f.label :deadline %><br />
-    <%= f.datetime_select :deadline %>
+    <%= f.datetime_select :deadline, :start_year => Time.now.year %>
   </p>
   <p>
-    <%= f.label :is_recurring %><br />
+    <%= f.label :Recurring %>
     <%= f.check_box :is_recurring %>
   </p>
   <p>
-    <%= f.label :is_rotating %><br />
+    <%= f.label :Rotating %>
     <%= f.check_box :is_rotating %>
   </p>
   <p>
