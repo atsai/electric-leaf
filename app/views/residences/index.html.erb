@@ -1,0 +1,19 @@
+<h1>Listing residences</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @residences.each do |residence| %>
+  <tr>
+		<td><%=h residence.id %></td>
+    <td><%= link_to 'Show', residence %></td>
+    <td><%= link_to 'Edit', edit_residence_path(residence) %></td>
+    <td><%= link_to 'Destroy', residence, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New residence', new_residence_path %>

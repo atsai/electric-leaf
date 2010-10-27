@@ -2,6 +2,7 @@ class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
       t.string :name
+      t.integer :residence_id
 
       t.timestamps
     end

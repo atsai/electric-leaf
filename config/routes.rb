@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :residences
+
   map.resources :chore_associations
 
   map.resources :chores
