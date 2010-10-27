@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+		<head>
+		  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+		  <title>ROOMMATE APP</title>
+			<%= stylesheet_link_tag "basic" %>
+			<script type="text/javascript" src="javascripts/prototype.js"></script>
+			<script type="text/javascript" src="javascripts/protofish.js"></script>
+			<script type='text/javascript'>
+			   document.observe('dom:loaded', function(){
+			      new ProtoFish('menu-1', '200', 'hover', false, true, true);
+			   });
+			</script>
+		</head>
+    <body>
+		<div id="thePage">
+        <div id="top">
+            <div id="header"> 
+                <%= image_tag("blue.jpg", :class => "logo") %> 
+                <h1>ROOMMATE APP</h1>
+            </div>
+            <div id="navBar">
+							<nav>
+								<ul id='menu-1' class='menu'>
+									<li><a href='/index'>Home</a></li>
+									
+									<li><a class='sub' href='#'>Chores</a>
+										<ul>
+											<li><a href='#'>Add chore</a></li>
+											<li class='last'><a href='#'>View chores</a></li>
+										</ul>
+									</li>
+								
+									<li><a class='sub' href='#'>Bills</a>
+										<ul>
+											<li><a href='#'>Add bill</a></li>
+											<li class='last'><a href='#'>View bills</a></li>
+										</ul>
+									</li>
+									
+								</ul>
+							</nav>
+	
+                <!--><u1>
+                <li><a href="">Home</a></li>
+                <li><a href="">Chores</a></li>
+                <li><a href="">Bills</a></li>
+                </u1>-->
+            </div>
+        </div>
+        <div id="middle">
+            <div id ="content">
+                <%= yield -%>
+            </div>
+        </div>
+        <div id="bottom">
+            <div id ="aboutUs">
+                <u1>
+                <li><a href="">aboutUs</a></li>
+                <li><a href="">Careers</a></li>
+                <li><a href="">Location</a></li>
+                </u1>
+            </div>
+        </div>
+		</div>
+    </body>
+</html>

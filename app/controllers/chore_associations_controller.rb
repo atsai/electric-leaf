@@ -1,4 +1,5 @@
 class ChoreAssociationsController < ApplicationController
+  layout 'basic'
   # GET /chore_associations
   # GET /chore_associations.xml
   def index

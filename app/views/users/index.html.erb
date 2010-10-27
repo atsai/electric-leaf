@@ -3,11 +3,15 @@
 <table>
   <tr>
     <th>Name</th>
+		<th>Residence ID</th>
+		<th>Roommates</th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
     <td><%=h user.name %></td>
+		<td><%=h user.residence.id %></td>
+		<td><%=h user.roommates_string %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>

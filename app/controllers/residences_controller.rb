@@ -1,4 +1,5 @@
 class ResidencesController < ApplicationController
+  layout 'basic'
   # GET /residences
   # GET /residences.xml
   def index

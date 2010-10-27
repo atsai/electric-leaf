@@ -1,4 +1,5 @@
 class ChoresController < ApplicationController
+  layout 'basic'
   # GET /chores
   # GET /chores.xml
   def index

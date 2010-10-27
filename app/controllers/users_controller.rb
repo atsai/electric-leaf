@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  layout 'basic'
   # GET /users
   # GET /users.xml
   def index
@@ -14,6 +15,15 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
+    #@roommates = []
+    @roommates = ""
+    @user.residence.users.each do |person|
+      #if person != @user
+      #  @roommates << person
+      #end
+      @roommates += (person.name + ", ") if person != @user
+    end
+    @roommates = @roommates[0..-3]
 
     respond_to do |format|
       format.html # show.html.erb
