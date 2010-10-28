@@ -1,4 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
+  map.root :controller=> "application", :action=> "index"
+
+  map.oauth_authorize '/sessions/facebook_oauth_new', :controller => 'sessions', :action => 'facebook_oauth_new'
+  map.oauth_callback '/sessions/facebook_oauth_callback', :controller => 'sessions', :action => 'facebook_oauth_callback'
+
   map.resources :residences
 
   map.resources :chore_associations

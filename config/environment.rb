@@ -20,6 +20,9 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
 
+  FACEBOOK_OAUTH_APP_ID = "136434536407760"
+  FACEBOOK_OAUTH_APP_SECRET = "ee35941e4e3d378259d5ac5760fed50e"
+
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
   # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
