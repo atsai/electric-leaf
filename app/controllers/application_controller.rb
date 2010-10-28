@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   def index
-
+    if session[:user_id]
+      user = User.find_by_id(session[:user_id])
+      @name = user.name
+      @email = user.email
+    end
   end
 
 end

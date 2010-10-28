@@ -1,3 +1,9 @@
-<h1> Welcome to Roommate App </h1>
+<h1> Roommate App </h1>
 
-<p> Please log in using Facebook </p>
+<% if session[:user_id] %>
+  <p> Welcome <%= @name %>! </p>
+  <p> Email: <%= @email %> </p>
+  <%= link_to "Logout", "/sessions/logout" %>
+<% else %>
+  <%= link_to image_tag("/images/fb_login.png"), :controller=>"sessions", :action=>"facebook_oauth_new" %>
+<% end %>
