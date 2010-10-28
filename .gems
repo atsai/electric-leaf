@@ -1,2 +1,2 @@
 rails --version 2.3.8
-oauth2
+oauth2 --version 0.0.13
