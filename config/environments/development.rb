@@ -15,3 +15,6 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+FACEBOOK_OAUTH_APP_ID = "154789757896813"
+FACEBOOK_OAUTH_APP_SECRET = "e3c7ac5ded10c4772eaea0e01232e65f"

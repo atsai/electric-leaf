@@ -26,3 +26,5 @@ config.action_view.cache_template_loading            = true
 
 # Enable threaded mode
 # config.threadsafe!
+FACEBOOK_OAUTH_APP_ID = "136434536407760"
+FACEBOOK_OAUTH_APP_SECRET = "ee35941e4e3d378259d5ac5760fed50e"
