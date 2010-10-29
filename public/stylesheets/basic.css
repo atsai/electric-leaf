@@ -15,9 +15,14 @@ div#thePage
     display:inline-block;
 }*/
 
-div#flash
+div.error, div.errorExplanation
 {
   background-color:#ff9999;
+}
+
+div.notice
+{
+  background-color:#90EE90;
 }
 
 div#bottom

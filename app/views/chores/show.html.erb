@@ -9,6 +9,15 @@
 </p>
 
 <p>
+	<b>People:</b>
+	<ul>
+		<% @chore.users.each do |user| %>
+			<li><%= user.name %></li>
+		<% end %>
+	</ul>
+</p>	
+
+<p>
   <b>Deadline:</b>
   <%=h @chore.deadline %>
 </p>

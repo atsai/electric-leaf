@@ -6,6 +6,7 @@ class CreateChores < ActiveRecord::Migration
       t.datetime :deadline
       t.boolean :is_recurring
       t.boolean :is_rotating
+      t.integer :residence_id
 
       t.timestamps
     end

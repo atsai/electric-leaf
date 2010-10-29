@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
     residence.save!
     user = User.new(:name=>json['name'], :email=>json["email"], :fb_id=>json["id"], :access_token=>token, :residence_id=>residence.id)
     user.save!
+    user
   end
 
   def self.facebook_client

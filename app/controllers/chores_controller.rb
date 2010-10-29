@@ -5,8 +5,11 @@ class ChoresController < ApplicationController
   
   # GET /chores
   # GET /chores.xml
+  # Show only the chores of the user's residence!
   def index
-    @chores = Chore.all
+    @user = User.find_by_id(session[:user_id])
+    @chores = Chore.find_all_by_residence_id(@user.residence.id)
+    @chores = [@chores] if not @chores.is_a? Enumerable
 
     respond_to do |format|
       format.html # index.html.erb
@@ -18,6 +21,7 @@ class ChoresController < ApplicationController
   # GET /chores/1.xml
   def show
     @chore = Chore.find(params[:id])
+    @user = User.find_by_id(session[:user_id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -28,6 +32,7 @@ class ChoresController < ApplicationController
   # GET /chores/new
   # GET /chores/new.xml
   def new
+    puts "New called"
     @chore = Chore.new
     @user = User.find_by_id(session[:user_id])
     @roommates = @user.roommates
@@ -41,19 +46,22 @@ class ChoresController < ApplicationController
   # GET /chores/1/edit
   def edit
     @chore = Chore.find(params[:id])
+    @user = User.find_by_id(session[:user_id])
+    @roommates = @user.roommates
   end
 
   # POST /chores
   # POST /chores.xml
   def create
     @chore = Chore.new(params[:chore])
-    #params[:people][:user_id].each do |user_id|
-
+    
     respond_to do |format|
       if @chore.save
         format.html { redirect_to(@chore, :notice => 'Chore was successfully created.') }
         format.xml  { render :xml => @chore, :status => :created, :location => @chore }
       else
+        @user = User.find_by_id(session[:user_id])
+        @roommates = @user.roommates
         format.html { render :action => "new" }
         format.xml  { render :xml => @chore.errors, :status => :unprocessable_entity }
       end
