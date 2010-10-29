@@ -15,6 +15,11 @@ div#thePage
     display:inline-block;
 }*/
 
+div#flash
+{
+  background-color:#ff9999;
+}
+
 div#bottom
 {
     float:right;

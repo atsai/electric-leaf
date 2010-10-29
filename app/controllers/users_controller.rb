@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   layout 'basic'
+  before_filter :require_login, :only => [:index, :show, :edit, :update, :destroy] # not new or create
+  
   # GET /users
   # GET /users.xml
   def index

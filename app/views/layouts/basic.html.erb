@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 		<head>
 		  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+			<link rel="icon" type="image/png" href="images/rails.png" />
 		  <title>ROOMMATE APP</title>
 			<%= stylesheet_link_tag "basic" %>
 			<script type="text/javascript" src="javascripts/prototype.js"></script>
@@ -23,7 +24,7 @@
             <div id="navBar">
 							<nav>
 								<ul id='menu-1' class='menu'>
-									<li><a href='/index'>Home</a></li>
+									<li><a href='/'>Home</a></li>
 									
 									<li><a class='sub' href='#'>Chores</a>
 										<ul>
@@ -51,6 +52,14 @@
         </div>
         <div id="middle">
             <div id ="content">
+						 		<% [:info, :error].each do |key| %>
+									<% if flash[key] %>
+						   			<div class="<%= key %>" id="flash">
+						   			<%= flash[key] %>
+						   			</div><br>
+						   		<% end %>
+						  	<% end %>
+	
                 <%= yield -%>
             </div>
         </div>

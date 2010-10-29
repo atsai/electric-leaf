@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :chore_associations
   has_many :chores, :through => :chore_associations
   belongs_to :residence
   
@@ -14,6 +15,7 @@ class User < ActiveRecord::Base
   
   def roommates_string
     results = ""
+    roommates.sort! { |a,b| a.name.downcase <=> b.name.downcase }
     roommates.each do |roommate|
       results += (roommate.name + ", ")
     end
@@ -36,7 +38,9 @@ class User < ActiveRecord::Base
   end
 
   def self.registerUser(json,token)
-    user = User.new(:name=>json['name'], :email=>json["email"], :fb_id=>json["id"], :access_token=>token, :residence_id=>0)
+    residence = Residence.new()
+    residence.save!
+    user = User.new(:name=>json['name'], :email=>json["email"], :fb_id=>json["id"], :access_token=>token, :residence_id=>residence.id)
     user.save!
   end
 

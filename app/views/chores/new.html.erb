@@ -11,6 +11,15 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </p>
+	<p>
+		People<br />
+		<%= @user.name %>
+		<%= check_box_tag("chore[user_ids][]", @user.id, @chore.users.include?(@user)) %><br />
+		<% @roommates.each do |roommate| %>
+			<%= roommate.name %>
+			<%= check_box_tag("chore[user_ids][]", roommate.id, @chore.users.include?(roommate)) %><br />
+		<% end %>
+	</p>
   <p>
     <%= f.label :deadline %><br />
     <%= f.datetime_select :deadline, :start_year => Time.now.year %>

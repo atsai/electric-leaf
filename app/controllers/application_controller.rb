@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  layout 'basic'
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
@@ -14,6 +15,19 @@ class ApplicationController < ActionController::Base
       @name = user.name
       @email = user.email
     end
+  end
+  
+private
+
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section" 
+      redirect_to root_url
+    end
+  end
+
+  def logged_in?
+    session[:user_id] != nil
   end
 
 end

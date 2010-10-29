@@ -1,5 +1,8 @@
 class ChoresController < ApplicationController
   layout 'basic'
+  before_filter :require_login
+  #before_filter :require_ownership, :only => [:show, :edit, :update, :destroy]
+  
   # GET /chores
   # GET /chores.xml
   def index
@@ -26,6 +29,8 @@ class ChoresController < ApplicationController
   # GET /chores/new.xml
   def new
     @chore = Chore.new
+    @user = User.find_by_id(session[:user_id])
+    @roommates = @user.roommates
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,6 +47,7 @@ class ChoresController < ApplicationController
   # POST /chores.xml
   def create
     @chore = Chore.new(params[:chore])
+    #params[:people][:user_id].each do |user_id|
 
     respond_to do |format|
       if @chore.save
@@ -81,4 +87,19 @@ class ChoresController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+private
+
+  def require_ownership
+    @chore = Chore.find(params[:id])
+    unless owns_chore?(@chore)
+      flash[:error] = "Invalid chore" 
+      redirect_to :action => "index"
+    end
+  end
+
+  def owns_chore?(chore)
+    chore.users.include?(User.find_by_id(session[:user_id]))
+  end
+  
 end
