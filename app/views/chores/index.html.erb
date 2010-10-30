@@ -27,6 +27,7 @@
 	    <th class="nosort">Description</th>
 	    <th class="nosort">Recurring?</th>
 	    <th class="nosort">Rotating?</th>
+			<th class="text">Done?</th>
 	  </tr>
 	</thead>
 
@@ -46,6 +47,11 @@
     <td><%=h chore.description %></td>
     <td><%=h chore.is_recurring ? "Yes" : "No" %></td>
     <td><%=h chore.is_rotating ? "Yes" : "No" %></td>
+		<td>
+			<% if chore.is_done %>
+				<%= image_tag "Checkmark.png", :alt => 'Done!', :size => '30x28' %>
+			<% end %>
+		</td>
     <!--<td><%= link_to 'Show', chore %></td>
     <td><%= link_to 'Edit', edit_chore_path(chore) %></td>
     <td><%= link_to 'Destroy', chore, :confirm => 'Are you sure?', :method => :delete %></td>-->

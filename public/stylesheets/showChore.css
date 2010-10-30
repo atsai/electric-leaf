@@ -9,19 +9,13 @@ div
   margin-bottom:50px;
 }
 
-.button0
+.button0, .button1, .button2
 {
   margin-right:5px;
   float:right;
 }
 
-.button1
-{
-  margin-right:5px;
-  float:right;
-}
-
-.button2
+.button3
 {
   float:right;
 }

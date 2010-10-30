@@ -1,7 +1,7 @@
 class ChoresController < ApplicationController
-  layout 'basic', :except => [:show]
   before_filter :require_login
-  #before_filter :require_ownership, :only => [:show, :edit, :update, :destroy]
+  layout 'basic', :except => [:show]
+  before_filter :require_ownership, :only => [:show, :edit, :update, :destroy]
   
   # GET /chores
   # GET /chores.xml
@@ -55,10 +55,12 @@ class ChoresController < ApplicationController
   # POST /chores.xml
   def create
     @chore = Chore.new(params[:chore])
+    @chore.is_done = false
     
     respond_to do |format|
       if @chore.save
-        format.html { redirect_to(@chore, :notice => 'Chore was successfully created.') }
+        #format.html { redirect_to(@chore, :notice => 'Chore was successfully created.') }
+        format.html {redirect_to(chores_url, :notice => "Chore #{@chore.title} has been added for roommates #{@chore.sorted_users_string}.")}
         format.xml  { render :xml => @chore, :status => :created, :location => @chore }
       else
         @user = User.find_by_id(session[:user_id])
@@ -76,7 +78,8 @@ class ChoresController < ApplicationController
 
     respond_to do |format|
       if @chore.update_attributes(params[:chore])
-        format.html { redirect_to(@chore, :notice => 'Chore was successfully updated.') }
+        #format.html { redirect_to(@chore, :notice => 'Chore was successfully updated.') }
+        format.html {redirect_to(chores_url, :notice => "Chore #{@chore.title} has been updated for roommates #{@chore.sorted_users_string}.")}
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -97,6 +100,17 @@ class ChoresController < ApplicationController
     end
   end
   
+  def checkoff
+    @chore = Chore.find(params[:id])
+    @chore.is_done = true
+    @chore.save
+    
+    respond_to do |format|
+      format.html { redirect_to(chores_url, :notice => "Keep up the good work! Chore #{@chore.title} was checked off.") }
+      format.xml  { head :ok }
+    end
+  end
+  
 private
 
   def require_ownership
@@ -108,7 +122,8 @@ private
   end
 
   def owns_chore?(chore)
-    chore.users.include?(User.find_by_id(session[:user_id]))
+    #chore.users.include?(User.find_by_id(session[:user_id]))
+    chore.residence == User.find_by_id(session[:user_id]).residence
   end
   
 end
