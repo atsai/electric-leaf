@@ -1,28 +1,42 @@
 <h1>Listing chores</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Deadline</th>
-    <th>Is recurring</th>
-    <th>Is rotating</th>
-  </tr>
+<script type="text/javascript" src="javascripts/fastinit.js"></script>
+<script type="text/javascript" src="javascripts/tablekit.js"></script>
 
+<table class="sortable" cellpadding="5" cellspacing="0">
+	<thead>
+	  <tr class = "contentHeader">
+	    <th class="text">Title</th>
+	    <th class="sortfirstasc number">Deadline</th>
+			<th class="nosort">People</th>
+	    <th class="nosort">Description</th>
+	    <th class="nosort">Recurring?</th>
+	    <th class="nosort">Rotating?</th>
+	  </tr>
+	</thead>
+
+<tbody>
 <% @chores.each do |chore| %>
-  <tr>
+  <tr class = "contentRow"
+			onclick="location.href='<%= "/chores/#{chore.id}" %>';" >
     <td><%=h chore.title %></td>
+		<% if chore.deadline >= Time.now %>
+			<td><span class="hidden"><%=h @dates_in_asc_order.find_index chore.deadline %>x</span><%=h distance_of_time_in_words(Time.now, chore.deadline) + " from now" %>
+		<% else %>
+			<td bgColor = "#ff9999"><span class="hidden"><%=h @dates_in_asc_order.find_index chore.deadline %>x</span><%=h distance_of_time_in_words(Time.now, chore.deadline) + " ago" %>
+		<% end %>
+		<td><%=h chore.sorted_users_string %></td>
     <td><%=h chore.description %></td>
-    <td><%=h chore.deadline %></td>
-    <td><%=h chore.is_recurring %></td>
-    <td><%=h chore.is_rotating %></td>
-    <td><%= link_to 'Show', chore %></td>
+    <td><%=h chore.is_recurring ? "Yes" : "No" %></td>
+    <td><%=h chore.is_rotating ? "Yes" : "No" %></td>
+    <!--<td><%= link_to 'Show', chore %></td>
     <td><%= link_to 'Edit', edit_chore_path(chore) %></td>
-    <td><%= link_to 'Destroy', chore, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', chore, :confirm => 'Are you sure?', :method => :delete %></td>-->
   </tr>
 <% end %>
+</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New chore', new_chore_path %>
+<%= link_to 'Add a chore', new_chore_path %>

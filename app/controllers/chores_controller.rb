@@ -10,6 +10,7 @@ class ChoresController < ApplicationController
     @user = User.find_by_id(session[:user_id])
     @chores = Chore.find_all_by_residence_id(@user.residence.id)
     @chores = [@chores] if not @chores.is_a? Enumerable
+    @dates_in_asc_order = (@chores.map {|chore| chore.deadline}).sort!.insert(0, nil)
 
     respond_to do |format|
       format.html # index.html.erb

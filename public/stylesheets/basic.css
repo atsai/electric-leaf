@@ -10,6 +10,18 @@ div#thePage
   margin-right: auto;
 }
 
+tr.contentHeader
+{
+  color:#ffffff;
+  background-color:#2e3699;
+}
+
+tr.contentRow:hover
+{
+  background-color:#c0c0c0;
+  cursor:pointer;
+}
+
 /*div#top u1 li
 {
     display:inline-block;
@@ -48,6 +60,29 @@ img.logo
     float:left;
     width:40px;
     height:40px;
+}
+
+.hidden {
+  display: none;
+}
+
+/* sortable table */
+.sortcol {
+    cursor: pointer;
+    padding-right: 20px;
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+.sortasc { 
+    background-color: #B9DDFF;
+    background-image: url(/images/up.png);
+}
+.sortdesc {
+    background-color: #B9DDFF;
+    background-image: url(/images/down.png);
+}
+.nosort {
+    cursor: default;
 }
 
 /*
