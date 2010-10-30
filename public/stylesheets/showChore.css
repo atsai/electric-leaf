@@ -1,0 +1,27 @@
+div
+{
+  font-family:arial;
+}
+
+.rightMost
+{
+  text-align:right;
+  margin-bottom:50px;
+}
+
+.button0
+{
+  margin-right:5px;
+  float:right;
+}
+
+.button1
+{
+  margin-right:5px;
+  float:right;
+}
+
+.button2
+{
+  float:right;
+}

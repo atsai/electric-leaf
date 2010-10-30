@@ -1,7 +1,22 @@
 <h1>Listing chores</h1>
 
+<%= stylesheet_link_tag "facebox" %>
 <script type="text/javascript" src="javascripts/fastinit.js"></script>
 <script type="text/javascript" src="javascripts/tablekit.js"></script>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/facebox.js" ></script>
+<script type="text/javascript">
+	jQuery.noConflict();
+	var $j = jQuery;
+</script>
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('a[rel*=facebox]').facebox({
+      loading_image : '/images/loading.gif',
+      close_image   : '/images/closelabel.gif'
+    }) 
+  })
+</script>
 
 <table class="sortable" cellpadding="5" cellspacing="0">
 	<thead>
@@ -17,8 +32,10 @@
 
 <tbody>
 <% @chores.each do |chore| %>
+<!-- onclick="location.href='<%= "/chores/#{chore.id}" %>';" -->
+<!-- onclick="showPopWin('<%= "/chores/#{chore.id}" %>', 400, 200, null);" -->
   <tr class = "contentRow"
-			onclick="location.href='<%= "/chores/#{chore.id}" %>';" >
+			onclick="jQuery.facebox({ ajax: '<%= "/chores/#{chore.id}" %>' });" >
     <td><%=h chore.title %></td>
 		<% if chore.deadline >= Time.now %>
 			<td><span class="hidden"><%=h @dates_in_asc_order.find_index chore.deadline %>x</span><%=h distance_of_time_in_words(Time.now, chore.deadline) + " from now" %>

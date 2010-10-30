@@ -1,5 +1,5 @@
 class ChoresController < ApplicationController
-  layout 'basic'
+  layout 'basic', :except => [:show]
   before_filter :require_login
   #before_filter :require_ownership, :only => [:show, :edit, :update, :destroy]
   
