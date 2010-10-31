@@ -4,7 +4,6 @@ class Chore < ActiveRecord::Base
   belongs_to :residence
   
   def validate
-    puts "Validate being called!"
     validate_has_users
   end
   
