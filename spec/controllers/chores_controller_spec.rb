@@ -141,5 +141,43 @@ describe ChoresController do
       response.should redirect_to(chores_url)
     end
   end
+  
+  describe "Checkoff" do
+    it "checks off the requested chore" do
+      Chore.should_receive(:find).with("37").and_return(mock_chore)
+      mock_chore.should_receive(:is_done=).with(true)
+      mock_chore.should_receive(:save)
+      put :checkoff, :id => "37"
+    end
+  end
+  
+  describe "Require ownership" do
+    it "does not allow the user to see the chore if the user does not own the chore" do
+      controller.stub!(:owns_chore?).and_return(false)
+      Chore.stub(:find).with("37").and_return(mock_chore)
+      get :show, :id => "37"
+      response.should redirect_to(chores_url)
+    end
+    
+    it "does not allow the user to edit the chore if the user does not own the chore" do
+      controller.stub!(:owns_chore?).and_return(false)
+      Chore.stub(:find).with("37").and_return(mock_chore)
+      get :edit, :id => "37"
+      response.should redirect_to(chores_url)
+    end
+    
+    it "does not allow the user to update the chore if the user does not own the chore" do
+      controller.stub!(:owns_chore?).and_return(false)
+      Chore.stub(:find).with("37").and_return(mock_chore)
+      put :update, :id => "37", :chore => {:these => 'params'}
+      response.should redirect_to(chores_url)
+    end
 
+    it "does not allow the user to destroy the chore if the user does not own the chore" do
+      controller.stub!(:owns_chore?).and_return(false)
+      Chore.stub(:find).with("37").and_return(mock_chore)
+      delete :destroy, :id => "37"
+      response.should redirect_to(chores_url)
+    end
+  end
 end

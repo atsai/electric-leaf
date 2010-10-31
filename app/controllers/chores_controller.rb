@@ -33,7 +33,6 @@ class ChoresController < ApplicationController
   # GET /chores/new
   # GET /chores/new.xml
   def new
-    puts "New called"
     @chore = Chore.new
     @user = User.find_by_id(session[:user_id])
     @roommates = @user.roommates
