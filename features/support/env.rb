@@ -18,9 +18,14 @@ require 'webrat/core/matchers'
 
 Webrat.configure do |config|
   config.mode = :rails
+  #config.mode = :selenium
+  #config.application_environment = :test
+  #config.application_framework = :rails
   config.open_error_files = false # Set to true if you want error pages to pop up in the browser
 end
 
+World(Webrat::Methods)
+World(Webrat::Matchers)
 
 # If you set this to false, any error raised from within your app will bubble 
 # up to your step definition and out to cucumber unless you catch it somewhere
@@ -45,7 +50,7 @@ ActionController::Base.allow_rescue = false
 # after each scenario, which can lead to hard-to-debug failures in 
 # subsequent scenarios. If you do this, we recommend you create a Before
 # block that will explicitly put your database in a known state.
-Cucumber::Rails::World.use_transactional_fixtures = true
+Cucumber::Rails::World.use_transactional_fixtures = false
 # How to clean your database when transactions are turned off. See
 # http://github.com/bmabey/database_cleaner for more info.
 if defined?(ActiveRecord::Base)
@@ -53,5 +58,19 @@ if defined?(ActiveRecord::Base)
     require 'database_cleaner'
     DatabaseCleaner.strategy = :truncation
   rescue LoadError => ignore_if_database_cleaner_not_present
+  end
+end
+
+class ActiveSupport::TestCase
+  setup do |session|
+    session.host! "localhost:3001"
+  end
+end
+
+class ChoresController < ApplicationController
+  prepend_before_filter :stub_current_user
+  def stub_current_user
+    puts "I'm being called!"
+    session[:user_id] = cookies[:stub_user_id] if cookies[:stub_user_id]
   end
 end
