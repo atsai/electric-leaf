@@ -35,13 +35,13 @@
 <% @chores.each do |chore| %>
 <!-- onclick="location.href='<%= "/chores/#{chore.id}" %>';" -->
 <!-- onclick="showPopWin('<%= "/chores/#{chore.id}" %>', 400, 200, null);" -->
-  <tr class = "contentRow"
+  <tr class = "contentRow" id = '<%= "#{chore.title}" %>'
 			onclick="jQuery.facebox({ ajax: '<%= "/chores/#{chore.id}" %>' });" >
     <td><%=h chore.title %></td>
 		<% if chore.deadline >= Time.now %>
-			<td><span class="hidden"><%=h @dates_in_asc_order.find_index chore.deadline %>x</span><%=h distance_of_time_in_words(Time.now, chore.deadline) + " from now" %>
+			<td><span class="hidden"><%=h @dates_in_asc_order.find_index chore.deadline %>x</span><%=h distance_of_time_in_words(Time.now, chore.deadline) + " from now" %></td>
 		<% else %>
-			<td bgColor = "#ff9999"><span class="hidden"><%=h @dates_in_asc_order.find_index chore.deadline %>x</span><%=h distance_of_time_in_words(Time.now, chore.deadline) + " ago" %>
+			<td bgColor = "#ff9999"><span class="hidden"><%=h @dates_in_asc_order.find_index chore.deadline %>x</span><%=h distance_of_time_in_words(Time.now, chore.deadline) + " ago" %></td>
 		<% end %>
 		<td><%=h chore.sorted_users_string %></td>
     <td><%=h chore.description %></td>

@@ -10,6 +10,15 @@ Given /^I have added chore "([^"]*)" for "([^"]*)" with deadline "([^"]*)"$/ do 
     :user_ids => [@user.id])
 end
 
+When /^I click on chore "([^"]*)"$/ do |chore_title|
+  #selenium.wait_for_text chore_title, :timeout_in_seconds => 10
+  selenium.click "class=contentRow", :timeout_in_seconds => 10
+end
+
+When /^I click on the Title header$/ do
+  selenium.click "class=text", :timeout_in_seconds => 5
+end
+
 Then /^I should see chore "([^"]*)" for "([^"]*)" with deadline "([^"]*)"$/ do |chore_title, user_name, deadline|
   @user = User.find_by_name(user_name)
   #@time_string = ActionView::Helpers::DateHelper.distance_of_time_in_words(Time.parse(deadline))
@@ -22,4 +31,15 @@ Then /^I should see chore "([^"]*)" for "([^"]*)" with deadline "([^"]*)"$/ do |
     assert_contain @user.name
     #assert_contain distance_of_time_in_words(@time_string)
   end
+end
+
+Then /^I should see "([^"]*)" "([^"]*)" and "([^"]*)" in order$/ do |chore1, chore2, chore3|
+  '''
+  wait_for do
+    selenium.is_ordered(
+      "id=#{chore1}",
+      "id=#{chore2}"
+    ).should be_true
+  end
+  '''
 end

@@ -17,10 +17,9 @@ require 'webrat'
 require 'webrat/core/matchers'
 
 Webrat.configure do |config|
-  config.mode = :rails
-  #config.mode = :selenium
-  #config.application_environment = :test
-  #config.application_framework = :rails
+  #config.mode = :rails
+  config.mode = :selenium
+  config.application_framework = :rails
   config.open_error_files = false # Set to true if you want error pages to pop up in the browser
 end
 
@@ -61,16 +60,12 @@ if defined?(ActiveRecord::Base)
   end
 end
 
-class ActiveSupport::TestCase
-  setup do |session|
-    session.host! "localhost:3001"
-  end
-end
-
 class ChoresController < ApplicationController
   prepend_before_filter :stub_current_user
   def stub_current_user
-    puts "I'm being called!"
-    session[:user_id] = cookies[:stub_user_id] if cookies[:stub_user_id]
+    session[:user_id] = 1
+    puts "Hello!"
+    #session[:user_id] = cookies[:stub_user_id] if cookies[:stub_user_id]
+    puts session[:user_id]
   end
 end
