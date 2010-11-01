@@ -15,7 +15,6 @@ class SessionsController < ApplicationController
       return redirect_to "/", :alert => "User denied access"
     end
 
-
     facebook_access_token = User.facebook_client.web_server.get_access_token(
         params[:code], :redirect_uri => "http://"+request.host_with_port+"/sessions/facebook_oauth_callback"
     )
