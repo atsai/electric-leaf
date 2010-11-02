@@ -1,0 +1,47 @@
+Using the default profile...
+...............................UUUUUU...................F-.....F-......
+
+(::) failed steps (::)
+
+undefined method `selenium' for #<Webrat::Session:0x102e5f6c0> (NoMethodError)
+./features/step_definitions/chores_steps.rb:25:in `/^I click on the Title header$/'
+features/view_chores.feature:30:in `When I click on the Title header'
+
+undefined method `selenium' for #<Webrat::Session:0x10339cb38> (NoMethodError)
+./features/step_definitions/chores_steps.rb:29:in `/^I click on the Deadline header$/'
+features/view_chores.feature:39:in `When I click on the Deadline header'
+
+Failing Scenarios:
+cucumber features/view_chores.feature:24 # Scenario: Sort chores by title
+cucumber features/view_chores.feature:33 # Scenario: Sort chores by deadline
+
+11 scenarios (2 failed, 2 undefined, 7 passed)
+71 steps (2 failed, 2 skipped, 6 undefined, 61 passed)
+0m2.348s
+
+You can implement step definitions for undefined steps with these snippets:
+
+Given /^I am at the main page$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^I click on the view debts button$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should see a list of all roommates with associated debt amounts$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Given /^I am at the debt page$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^I click on a roommate name$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should see the details of the debt$/ do
+  pending # express the regexp above with the code you wish you had
+end
+

@@ -10,6 +10,12 @@ Given /^I have added chore "([^"]*)" for "([^"]*)" with deadline "([^"]*)"$/ do 
     :user_ids => [@user.id])
 end
 
+When /^I visit the page for chore "([^"]*)"$/ do |chore_title|
+  @chore = Chore.find_by_title(chore_title)
+  @chore_page = "/chores/" + @chore.id.to_s
+  visit @chore_page
+end
+
 When /^I click on chore "([^"]*)"$/ do |chore_title|
   #selenium.wait_for_text chore_title, :timeout_in_seconds => 10
   selenium.click "class=contentRow", :timeout_in_seconds => 10
@@ -17,6 +23,10 @@ end
 
 When /^I click on the Title header$/ do
   selenium.click "class=text", :timeout_in_seconds => 5
+end
+
+When /^I click on the Deadline header$/ do
+  selenium.click "class=sortfirstasc number", :timeout_in_seconds => 5
 end
 
 Then /^I should see chore "([^"]*)" for "([^"]*)" with deadline "([^"]*)"$/ do |chore_title, user_name, deadline|
@@ -34,12 +44,16 @@ Then /^I should see chore "([^"]*)" for "([^"]*)" with deadline "([^"]*)"$/ do |
 end
 
 Then /^I should see "([^"]*)" "([^"]*)" and "([^"]*)" in order$/ do |chore1, chore2, chore3|
-  '''
   wait_for do
     selenium.is_ordered(
       "id=#{chore1}",
       "id=#{chore2}"
     ).should be_true
   end
-  '''
+  wait_for do
+    selenium.is_ordered(
+      "id=#{chore2}",
+      "id=#{chore3}"
+    ).should be_true
+  end
 end
