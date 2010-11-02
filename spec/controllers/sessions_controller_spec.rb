@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'ostruct'
 
 describe SessionsController do
 
@@ -21,6 +22,18 @@ describe SessionsController do
       #get :facebook_oauth_callback
       #response.should redirect_to("/")
     #end
+    it "should receive facebook oauth token" do
+      @mock_token = OpenStruct.new({"token" => 1})
+      @mock_fb_client = "Hello"
+      @mock_web_server = "Hello"
+      User.stub!(:facebook_client).and_return(@mock_fb_client)
+      @mock_fb_client.stub!(:web_server).and_return(@mock_web_server)
+      @mock_web_server.stub!(:authorize_url).and_return 1
+      User.facebook_client.web_server.stub!(:get_access_token).and_return(@mock_token)
+      User.stub!(:login).and_return(1)
+      get :facebook_oauth_callback, :code => 1
+      response.should redirect_to("/")
+    end
     it "should redirect webpage to root page" do
       get :facebook_oauth_callback
       response.should redirect_to("/")
