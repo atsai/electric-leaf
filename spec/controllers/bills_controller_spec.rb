@@ -1,9 +1,21 @@
 require 'spec_helper'
 
 describe BillsController do
+  
+  before(:each) do
+    @residence = Residence.create!
+    @user = User.create!(:name => "Test User", :residence_id => 1)
+    User.stub!(:find_by_id).and_return(@user)
+    controller.stub!(:logged_in?).and_return(true)
+  end
 
   def mock_bill(stubs={})
     @mock_bill ||= mock_model(Bill, stubs)
+    @mock_bill.stub!(:residence).and_return(@residence)
+    @mock_bill.stub!(:deadline).and_return(Time.now)
+    @mock_bill.stub!(:title).and_return("Title")
+    @mock_bill.stub!(:sorted_users_string).and_return("Test User")
+    @mock_bill
   end
 
   describe "GET index" do
@@ -74,7 +86,7 @@ describe BillsController do
 
     describe "with valid params" do
       it "updates the requested bill" do
-        Bill.should_receive(:find).with("37").and_return(mock_bill)
+        Bill.should_receive(:find).twice.with("37").and_return(mock_bill)
         mock_bill.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => "37", :bill => {:these => 'params'}
       end
@@ -94,7 +106,7 @@ describe BillsController do
 
     describe "with invalid params" do
       it "updates the requested bill" do
-        Bill.should_receive(:find).with("37").and_return(mock_bill)
+        Bill.should_receive(:find).twice.with("37").and_return(mock_bill)
         mock_bill.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => "37", :bill => {:these => 'params'}
       end
@@ -116,7 +128,7 @@ describe BillsController do
 
   describe "DELETE destroy" do
     it "destroys the requested bill" do
-      Bill.should_receive(:find).with("37").and_return(mock_bill)
+      Bill.should_receive(:find).twice.with("37").and_return(mock_bill)
       mock_bill.should_receive(:destroy)
       delete :destroy, :id => "37"
     end
@@ -128,4 +140,33 @@ describe BillsController do
     end
   end
 
+  describe "Require ownership" do
+    it "does not allow the user to see the bill if the user does not own the bill" do
+      controller.stub!(:owns_bill?).and_return(false)
+      Bill.stub(:find).with("37").and_return(mock_bill)
+      get :show, :id => "37"
+      response.should redirect_to(bills_url)
+    end
+    
+    it "does not allow the user to edit the bill if the user does not own the bill" do
+      controller.stub!(:owns_bill?).and_return(false)
+      Bill.stub(:find).with("37").and_return(mock_bill)
+      get :edit, :id => "37"
+      response.should redirect_to(bills_url)
+    end
+    
+    it "does not allow the user to update the bill if the user does not own the bill" do
+      controller.stub!(:owns_bill?).and_return(false)
+      Bill.stub(:find).with("37").and_return(mock_bill)
+      put :update, :id => "37", :bill => {:these => 'params'}
+      response.should redirect_to(bills_url)
+    end
+
+    it "does not allow the user to destroy the bill if the user does not own the bill" do
+      controller.stub!(:owns_bill?).and_return(false)
+      Bill.stub(:find).with("37").and_return(mock_bill)
+      delete :destroy, :id => "37"
+      response.should redirect_to(bills_url)
+    end
+  end
 end
