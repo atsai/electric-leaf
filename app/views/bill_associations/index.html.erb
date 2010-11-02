@@ -1,0 +1,22 @@
+<h1>Listing bill_associations</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Bill</th>
+  </tr>
+
+<% @bill_associations.each do |bill_association| %>
+  <tr>
+    <td><%=h bill_association.user_id %></td>
+    <td><%=h bill_association.bill_id %></td>
+    <td><%= link_to 'Show', bill_association %></td>
+    <td><%= link_to 'Edit', edit_bill_association_path(bill_association) %></td>
+    <td><%= link_to 'Destroy', bill_association, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New bill_association', new_bill_association_path %>

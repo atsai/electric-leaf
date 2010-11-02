@@ -1,0 +1,13 @@
+<p>
+  <b>User:</b>
+  <%=h @bill_association.user_id %>
+</p>
+
+<p>
+  <b>Bill:</b>
+  <%=h @bill_association.bill_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_bill_association_path(@bill_association) %> |
+<%= link_to 'Back', bill_associations_path %>

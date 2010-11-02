@@ -1,0 +1,2 @@
+module BillAssociationsHelper
+end

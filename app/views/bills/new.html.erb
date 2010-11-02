@@ -1,0 +1,41 @@
+<h1>New bill</h1>
+
+<% form_for(@bill) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :amount %><br />
+    $ <%= f.text_field :amount %>
+  </p>
+	<p>
+		People<br />
+		<%= @user.name %>
+		<%= check_box_tag("bill[user_ids][]", @user.id, @bill.users.include?(@user)) %><br />
+		<% @roommates.each do |roommate| %>
+			<%= roommate.name %>
+			<%= check_box_tag("bill[user_ids][]", roommate.id, @bill.users.include?(roommate)) %><br />
+		<% end %>
+	</p>
+  <p>
+    <%= f.label "Evenly Split?" %><br />
+    <%= f.check_box :is_evenly_split %>
+  </p>
+  <p>
+    <%= f.label "Pay by:" %><br />
+    <%= f.datetime_select :deadline %>
+  </p>
+  <p>
+    <%= f.label :Recurring %><br />
+    <%= f.check_box :is_recurring %>
+  </p>
+	<%= f.hidden_field :residence_id, :value => @user.residence.id %>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', bills_path %>

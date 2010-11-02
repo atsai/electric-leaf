@@ -1,0 +1,28 @@
+<p>
+  <b>Title:</b>
+  <%=h @bill.title %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%=h @bill.amount %>
+</p>
+
+<p>
+  <b>Is evenly split:</b>
+  <%=h @bill.is_evenly_split %>
+</p>
+
+<p>
+  <b>Deadline:</b>
+  <%=h @bill.deadline %>
+</p>
+
+<p>
+  <b>Is recurring:</b>
+  <%=h @bill.is_recurring %>
+</p>
+
+
+<%= link_to 'Edit', edit_bill_path(@bill) %> |
+<%= link_to 'Back', bills_path %>

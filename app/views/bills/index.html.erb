@@ -1,0 +1,50 @@
+<h1>Listing bills</h1>
+
+<%= stylesheet_link_tag "facebox" %>
+<script type="text/javascript" src="javascripts/fastinit.js"></script>
+<script type="text/javascript" src="javascripts/tablekit.js"></script>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/facebox.js" ></script>
+<script type="text/javascript">
+	jQuery.noConflict();
+	var $j = jQuery;
+</script>
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('a[rel*=facebox]').facebox({
+      loading_image : '/images/loading.gif',
+      close_image   : '/images/closelabel.gif'
+    }) 
+  })
+</script>
+
+<table class="sortable" cellpadding="5" cellspacing="0">
+	<thead>
+	  <tr class = "contentHeader">
+	    <th class="nosort">Title</th>
+	    <th class="nosort">Amount</th>
+	    <th class="nosort">Is evenly split</th>
+	    <th class="nosort">Deadline</th>
+	    <th class="nosort">Is recurring</th>
+	  </tr>
+	</thead>
+
+<tbody>
+<% @bills.each do |bill| %>
+  <tr class = "contentRow">
+    <td><%=h bill.title %></td>
+    <td><%=h bill.amount %></td>
+    <td><%=h bill.is_evenly_split %></td>
+    <td><%=h bill.deadline %></td>
+    <td><%=h bill.is_recurring %></td>
+    <td><%= link_to 'Show', bill %></td>
+    <td><%= link_to 'Edit', edit_bill_path(bill) %></td>
+    <td><%= link_to 'Destroy', bill, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+
+<br />
+
+<%= link_to 'New bill', new_bill_path %>

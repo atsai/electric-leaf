@@ -1,0 +1,19 @@
+<h1>New bill_association</h1>
+
+<% form_for(@bill_association) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :bill_id %><br />
+    <%= f.text_field :bill_id %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', bill_associations_path %>

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  amount: 9.99
+  is_evenly_split: false
+  deadline: 2010-11-01 22:35:00
+  is_recurring: false
+
+two:
+  title: MyString
+  amount: 9.99
+  is_evenly_split: false
+  deadline: 2010-11-01 22:35:00
+  is_recurring: false

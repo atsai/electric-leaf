@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+
   map.root :controller=> "application", :action=> "index"
 
   map.oauth_authorize '/sessions/facebook_oauth_new', :controller => 'sessions', :action => 'facebook_oauth_new'
@@ -11,6 +12,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :chores
 
   map.resources :users
+  
+  map.resources :bills
+
+  map.resources :bill_associations
 
   # The priority is based upon order of creation: first created -> highest priority.
 
