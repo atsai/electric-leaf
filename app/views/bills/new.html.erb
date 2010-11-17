@@ -29,15 +29,14 @@
     <%= f.datetime_select :deadline %>
   </p>
   <p>
-    <%= f.label :Recurring %><br />
-    <%= f.check_box :is_recurring %>
+    Recurring:
     <p>
-      <%= f.label :Monthly %><br />
-      <%= f.check_box :is_monthly %>
+      <%= check_box_tag(:montly) %>
+      <%= label_tag(:monthly, "Monthly") %> 
     </p>
     <p>
-      <%= f.label :BiMonthly %><br />
-      <%= f.check_box :is_bimonthly %>
+      <%= check_box_tag(:bimonthly) %>
+      <%= label_tag(:bimonthly, "Bimonthly") %> 
     </p>
   </p>
 	<%= f.hidden_field :residence_id, :value => @user.residence.id %>
