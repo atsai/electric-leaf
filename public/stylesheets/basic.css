@@ -22,6 +22,12 @@ tr.contentRow:hover
   cursor:pointer;
 }
 
+tr.contentRowDone:hover
+{
+  background-color:#c0c0c0;
+  cursor:pointer;
+}
+
 /*div#top u1 li
 {
     display:inline-block;

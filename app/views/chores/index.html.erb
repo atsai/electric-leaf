@@ -1,6 +1,7 @@
 <h1>Listing chores</h1>
 
 <%= stylesheet_link_tag "facebox" %>
+<%= stylesheet_link_tag "choresIndex" %>
 <script type="text/javascript" src="javascripts/fastinit.js"></script>
 <script type="text/javascript" src="javascripts/tablekit.js"></script>
 <script type="text/javascript" src="javascripts/jquery.min.js"></script>
@@ -17,6 +18,23 @@
     }) 
   })
 </script>
+<script type="text/javascript">
+  function toggleCompletedChores(){
+    var rows = $$('tr.contentRowDone');
+    for (var i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      if (row.style.display == '') row.style.display = 'none';
+      else row.style.display = '';
+    }
+    if($('toggleChoresButton').value == "Hide Completed Chores") {
+      $('toggleChoresButton').value = "Show Completed Chores";
+    } else {
+      $('toggleChoresButton').value = "Hide Completed Chores";
+    }
+}
+</script>
+
+<input type="button" value="Hide Completed Chores" id="toggleChoresButton" onclick="toggleCompletedChores()"></input>
 
 <table class="sortable" cellpadding="5" cellspacing="0">
 	<thead>
@@ -35,8 +53,13 @@
 <% @chores.each do |chore| %>
 <!-- onclick="location.href='<%= "/chores/#{chore.id}" %>';" -->
 <!-- onclick="showPopWin('<%= "/chores/#{chore.id}" %>', 400, 200, null);" -->
+<% if chore.is_done %>
+  <tr class = "contentRowDone" id = '<%= "#{chore.title}" %>' 
+      onclick="jQuery.facebox({ ajax: '<%= "/chores/#{chore.id}" %>' });" >
+<% else %>
   <tr class = "contentRow" id = '<%= "#{chore.title}" %>'
 			onclick="jQuery.facebox({ ajax: '<%= "/chores/#{chore.id}" %>' });" >
+<% end %>
     <td><%=h chore.title %></td>
 		<% if chore.deadline >= Time.now %>
 			<td><span class="hidden"><%=h @dates_in_asc_order.find_index chore.deadline %>x</span><%=h distance_of_time_in_words(Time.now, chore.deadline) + " from now" %></td>
