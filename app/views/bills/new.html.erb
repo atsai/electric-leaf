@@ -31,6 +31,14 @@
   <p>
     <%= f.label :Recurring %><br />
     <%= f.check_box :is_recurring %>
+    <p>
+      <%= f.label :Monthly %><br />
+      <%= f.check_box :is_monthly %>
+    </p>
+    <p>
+      <%= f.label :BiMonthly %><br />
+      <%= f.check_box :is_bimonthly %>
+    </p>
   </p>
 	<%= f.hidden_field :residence_id, :value => @user.residence.id %>
   <p>

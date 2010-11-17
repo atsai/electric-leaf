@@ -1,6 +1,7 @@
 class Bill < ActiveRecord::Base
   has_many :bill_associations
   has_many :users, :through => :bill_associations
+  has_one :bill_recurrance
   belongs_to :residence
   
   def validate

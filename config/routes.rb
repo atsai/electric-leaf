@@ -16,6 +16,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :bills
 
   map.resources :bill_associations
+  
+  map.resources :bill_recurrances
 
   # The priority is based upon order of creation: first created -> highest priority.
 

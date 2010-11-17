@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  end_date: 2010-11-16 23:17:36
+  is_monthly: false
+  is_bimonthly: false
+
+two:
+  end_date: 2010-11-16 23:17:36
+  is_monthly: false
+  is_bimonthly: false

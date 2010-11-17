@@ -49,6 +49,7 @@ class BillsController < ApplicationController
   # POST /bills.xml
   def create
     @bill = Bill.new(params[:bill])
+    @bill.bill_recurrance = BillRecurrance.new(params[:bill_recurrance])
 
     respond_to do |format|
       if @bill.save
