@@ -33,7 +33,7 @@ tr.contentRowDone:hover
     display:inline-block;
 }*/
 
-div.error, div.errorExplanation
+div.error, div.errorExplanation, div.alert
 {
   background-color:#ff9999;
 }

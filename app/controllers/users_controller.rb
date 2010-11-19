@@ -84,4 +84,61 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def add_roommate
+    @user = User.find(params[:id])
+  end
+  
+  def create_roommate_request
+    @user = User.find(params[:id])
+    @roommate_email = params[:roommate_email]
+    @roommate = User.find_by_email(@roommate_email)
+    
+    if @user == @roommate
+      alert = "You cannot add yourself as a roommate."
+    elsif @roommate == nil
+      alert = "Please ask your roommate to log in once before adding him/her."
+    elsif @roommate.roommate_request != nil
+      alert = "This user already has a pending roommate request."
+    else
+      @roommate.roommate_request = RoommateRequest.new(:user_id => @roommate.id, :requester_id => @user.id, :status => 0)
+      @roommate.save!
+    end
+    
+    respond_to do |format|
+      if alert
+        format.html { redirect_to add_roommate_path, :alert => alert }
+        format.xml  { head :ok }
+      else
+        format.html { redirect_to root_path, :notice => "#{@roommate.name} has been notified of your request." }
+        format.xml  { head :ok }
+      end
+    end
+  end
+  
+  def accept_roommate_request
+    @user = User.find(params[:id])
+    @roommate = @user.roommate_request.requester
+    @user.residence = @roommate.residence
+    @user.roommate_request.destroy
+    @user.save!
+    
+    respond_to do |format|
+      format.html { redirect_to(root_path, :notice => "You have been added to #{@roommate.name}'s residence!") }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def deny_roommate_request
+    @user = User.find(params[:id])
+    @roommate = @user.roommate_request.requester
+    @user.roommate_request.destroy
+    @user.save!
+    
+    respond_to do |format|
+      format.html { redirect_to(root_path, :notice => "You have denied #{@roommate.name}'s request.") }
+      format.xml  { head :ok }
+    end
+  end
+  
 end

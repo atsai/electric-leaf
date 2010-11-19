@@ -1,0 +1,18 @@
+<p>
+  <b>User:</b>
+  <%=h @roommate_request.user_id %>
+</p>
+
+<p>
+  <b>Requester:</b>
+  <%=h @roommate_request.requester_id %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @roommate_request.status %>
+</p>
+
+
+<%= link_to 'Edit', edit_roommate_request_path(@roommate_request) %> |
+<%= link_to 'Back', roommate_requests_path %>

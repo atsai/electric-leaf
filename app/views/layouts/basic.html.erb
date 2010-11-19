@@ -44,7 +44,7 @@
         </div>
         <div id="middle">
             <div id ="content">
-						 		<% [:notice, :info, :error].each do |key| %>
+						 		<% [:notice, :info, :error, :alert].each do |key| %>
 									<% if flash[key] %>
 						   			<div class="<%= key %>" id="flash">
 						   			<%= flash[key] %>

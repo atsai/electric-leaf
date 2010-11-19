@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :chore_associations
   has_many :chores, :through => :chore_associations
+  has_one :roommate_request
   belongs_to :residence
   
   validates_numericality_of :residence_id
