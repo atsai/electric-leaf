@@ -1,0 +1,13 @@
+<h1>Add a roommate</h1>
+
+<% form_tag(create_roommate_request_path, :method=>'put') do %>
+ <p>
+   Roommate's Email Address: <br />
+   <%=h text_field_tag "roommate_email" %>
+ </p>
+ <p>
+   <%= submit_tag 'Submit' %>
+ </p>
+<% end %>
+
+<%= link_to 'Back', root_path %>

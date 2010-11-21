@@ -1,8 +1,3 @@
-Given /^I have logged in as "([^"]*)"$/ do |user_name|
-  @user = User.find_by_name(user_name)
-  cookies[:stub_user_id] = @user.id
-end
-
 Given /^I have added chore "([^"]*)" for "([^"]*)" with deadline "([^"]*)"$/ do |chore_title, user_name, deadline|
   @user = User.find_by_name(user_name)
   Chore.create!(:title => chore_title, :description => "", :deadline => Time.parse(deadline), 

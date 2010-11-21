@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :roommate_requests
+
 
   map.root :controller=> "application", :action=> "index"
 
@@ -11,6 +13,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :chores
 
+  map.add_roommate 'users/:id/add_roommate', :controller => 'users', :action => 'add_roommate'
+  map.create_roommate_request 'users/:id/create_roommate_request', :controller => 'users', :action => 'create_roommate_request'
+  map.accept_roommate_request 'users/:id/accept_roommate_request', :controller => 'users', :action => 'accept_roommate_request'
+  map.deny_roommate_request 'users/:id/deny_roommate_request', :controller => 'users', :action => 'deny_roommate_request'
   map.resources :users
   
   map.resources :bills

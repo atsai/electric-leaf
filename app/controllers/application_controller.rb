@@ -11,9 +11,14 @@ class ApplicationController < ActionController::Base
   
   def index
     if session[:user_id]
-      user = User.find_by_id(session[:user_id])
-      @name = user.name
-      @email = user.email
+      @user = User.find_by_id(session[:user_id])
+      @name = @user.name
+      @email = @user.email
+      @roommates = @user.roommates_string
+      @roommates = "None" if @roommates == ""
+      if @user.roommate_request != nil
+        @requester_name = @user.roommate_request.requester_name
+      end
     end
   end
   

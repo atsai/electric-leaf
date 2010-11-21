@@ -22,12 +22,18 @@ tr.contentRow:hover
   cursor:pointer;
 }
 
+tr.contentRowDone:hover
+{
+  background-color:#c0c0c0;
+  cursor:pointer;
+}
+
 /*div#top u1 li
 {
     display:inline-block;
 }*/
 
-div.error, div.errorExplanation
+div.error, div.errorExplanation, div.alert
 {
   background-color:#ff9999;
 }

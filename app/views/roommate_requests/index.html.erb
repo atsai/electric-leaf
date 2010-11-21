@@ -1,0 +1,24 @@
+<h1>Listing roommate_requests</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Requester</th>
+    <th>Status</th>
+  </tr>
+
+<% @roommate_requests.each do |roommate_request| %>
+  <tr>
+    <td><%=h roommate_request.user_id %></td>
+    <td><%=h roommate_request.requester_id %></td>
+    <td><%=h roommate_request.status %></td>
+    <td><%= link_to 'Show', roommate_request %></td>
+    <td><%= link_to 'Edit', edit_roommate_request_path(roommate_request) %></td>
+    <td><%= link_to 'Destroy', roommate_request, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New roommate_request', new_roommate_request_path %>

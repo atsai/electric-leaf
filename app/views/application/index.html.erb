@@ -1,6 +1,14 @@
 <% if session[:user_id] %>
-  <p> Welcome <%= @name %>! </p>
-  <p> Email: <%= @email %> </p>
+  <p> Welcome <%=h @name %>! </p>
+  <p> Email: <%=h @email %> </p>
+	<p> Roommates: <%=h @roommates %> </p>
+	<% if @requester_name != nil %>
+		<p> <%=h @requester_name %> wants to add you as a roommate!
+				<%=h link_to "Accept", accept_roommate_request_path("#{@user.id}") %>
+				<%=h link_to "Deny", deny_roommate_request_path("#{@user.id}") %>
+		</p>
+	<% end %>
+	<p> <%= link_to "Add a roommate", add_roommate_path("#{@user.id}") %> </p>
   <%= link_to "Logout", "/sessions/logout" %>
 <% else %>
   <%= link_to image_tag("/images/fb_login.png"), :controller=>"sessions", :action=>"facebook_oauth_new" %>

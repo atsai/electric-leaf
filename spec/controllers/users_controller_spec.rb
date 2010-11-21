@@ -5,13 +5,24 @@ describe UsersController do
   before(:each) do
     controller.stub!(:logged_in?).and_return(true)
     @residence = Residence.create!
+    @residence2 = Residence.create!
   end
 
   def mock_user(stubs={})
     @mock_user ||= mock_model(User, stubs)
     @mock_user.stub!(:residence).and_return(@residence)
     @mock_user.stub!(:roommates_string).and_return("Test User")
+    @mock_user.stub!(:email).and_return("test@test.com")
     @mock_user
+  end
+  
+  def mock_other_user(stubs={})
+    @mock_other_user ||= mock_model(User, stubs)
+    @mock_other_user.stub!(:name).and_return("Other User")
+    @mock_other_user.stub!(:residence).and_return(@residence2)
+    @mock_other_user.stub!(:roommates_string).and_return("Test User 2")
+    @mock_other_user.stub!(:email).and_return("other@test.com")
+    @mock_other_user
   end
 
   describe "GET index" do
@@ -135,5 +146,98 @@ describe UsersController do
       response.should redirect_to(users_url)
     end
   end
+  
+  describe "GET add_roommate" do
+    it "assigns the requested user as @user" do
+      User.stub(:find).with("37").and_return(mock_user)
+      get :add_roommate, :id => "37"
+      assigns[:user].should equal(mock_user)
+    end
+  end
+  
+  describe "PUT create_roommate_request" do
 
+    describe "with valid params" do
+      
+      it "creates a roommate_request for the roommate (other user)" do
+        User.should_receive(:find).with("37").and_return(mock_user)
+        User.should_receive(:find_by_email).with("other@test.com").and_return(mock_other_user)
+        mock_other_user.should_receive(:roommate_request)
+        mock_other_user.should_receive(:roommate_request=)
+        mock_other_user.should_receive(:save!)
+        mock_other_user.should_receive(:name)
+        put :create_roommate_request, :id => "37", :roommate_email => "other@test.com"
+      end
+
+      it "assigns the requested user as @user" do
+        User.stub(:find).and_return(mock_user)
+        put :create_roommate_request, :id => "1"
+        assigns[:user].should equal(mock_user)
+      end
+
+      it "redirects to the root path" do
+        User.should_receive(:find).with("37").and_return(mock_user)
+        User.should_receive(:find_by_email).with("other@test.com").and_return(mock_other_user)
+        mock_other_user.should_receive(:roommate_request)
+        mock_other_user.should_receive(:roommate_request=)
+        mock_other_user.should_receive(:save!)
+        mock_other_user.should_receive(:name)
+        put :create_roommate_request, :id => "37", :roommate_email => "other@test.com"
+        response.should redirect_to(root_path)
+      end
+    end
+
+    describe "with invalid params" do
+
+      it "redirects to the add roommate page if user tries to add self" do
+        User.stub(:find).and_return(mock_user)
+        User.stub(:find_by_email).and_return(mock_user)
+        put :create_roommate_request, :id => "1", :roommate_email => "test@test.com"
+        response.should redirect_to(add_roommate_path)
+      end
+      
+      it "redirects to the add roommate page if user tries to add unregistered roommate" do
+        User.stub(:find).and_return(mock_user)
+        User.stub(:find_by_email).and_return(nil)
+        put :create_roommate_request, :id => "1", :roommate_email => "unregistered@test.com"
+        response.should redirect_to(add_roommate_path)
+      end
+      
+      it "redirects to the add roommate page if user tries to add a roommate with existing request" do
+        User.stub(:find).and_return(mock_user)
+        User.stub(:find_by_email).and_return(mock_other_user)
+        mock_other_user.should_receive(:roommate_request).and_return(1)
+        put :create_roommate_request, :id => "1", :roommate_email => "popularguy@test.com"
+        response.should redirect_to(add_roommate_path)
+      end
+    end
+    
+  end
+  
+  describe "PUT accept_roommate_request" do
+    it "adds the user to the requester's residence" do
+      roommate_req = mock_model(RoommateRequest)
+      roommate_req.stub!(:requester).and_return(mock_other_user)
+      roommate_req.should_receive(:destroy)
+      mock_user.should_receive(:roommate_request).at_least(1).times.and_return(roommate_req)
+      mock_user.should_receive(:residence=).with(mock_other_user.residence)
+      mock_user.should_receive(:save!)
+      User.stub(:find).and_return(mock_user)
+      put :accept_roommate_request, :id => "1"
+      response.should redirect_to(root_path)
+    end
+  end
+  
+  describe "PUT deny_roommate_request" do
+    it "destroys the roommate request" do
+      roommate_req = mock_model(RoommateRequest)
+      roommate_req.stub!(:requester).and_return(mock_other_user)
+      roommate_req.should_receive(:destroy)
+      mock_user.should_receive(:roommate_request).at_least(1).times.and_return(roommate_req)
+      mock_user.should_receive(:save!)
+      User.stub(:find).and_return(mock_user)
+      put :deny_roommate_request, :id => "1"
+      response.should redirect_to(root_path)
+    end
+  end
 end
