@@ -19,6 +19,8 @@ class BillsController < ApplicationController
   def show
     @bill = Bill.find(params[:id])
 
+    @billrecurrance = @bill.bill_recurrance
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @bill }
@@ -49,6 +51,9 @@ class BillsController < ApplicationController
   # POST /bills.xml
   def create
     @bill = Bill.new(params[:bill])
+    @bill.bill_recurrance = BillRecurrance.new(:recurrance=>params[:bill_recurrance], :end_date=>Date.civil(params[:end_date][:"date(1i)"].to_i,
+                                                                                                      params[:end_date][:"date(2i)"].to_i,
+                                                                                                      params[:end_date][:"date(3i)"].to_i))
 
     respond_to do |format|
       if @bill.save

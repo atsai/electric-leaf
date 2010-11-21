@@ -6,8 +6,7 @@
 			<link rel="icon" type="image/png" href="images/rails.png" />
 		  <title>ROOMMATE APP</title>
 			<%= stylesheet_link_tag "basic" %>
-			<script type="text/javascript" src="javascripts/prototype.js"></script>
-			<script type="text/javascript" src="javascripts/protofish.js"></script>
+      <%= javascript_include_tag "protofish-min","prototype","jquery" %>
 			<script type='text/javascript'>
 			   document.observe('dom:loaded', function(){
 			      new ProtoFish('menu-1', '200', 'hover', false, true, true);

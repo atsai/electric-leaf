@@ -29,20 +29,37 @@
     <%= f.datetime_select :deadline %>
   </p>
   <p>
-    Recurring:
     <p>
-      <%= check_box_tag(:montly) %>
-      <%= label_tag(:monthly, "Monthly") %> 
+      <%= f.label "Recurring" %><br />
+      <%= f.check_box :is_recurring, :onclick=>"toggleOptions();" %>
+    </p>
+    <div id="recurringOptions">
+    <p>
+    Recurrance:
+    <%= select_tag "bill_recurrance", "<option>Monthly</option><option>Bimonthly</option>" %>
     </p>
     <p>
-      <%= check_box_tag(:bimonthly) %>
-      <%= label_tag(:bimonthly, "Bimonthly") %> 
+    End Date:
+    <%= datetime_select('end_date', 'date', :order => [:month, :day, :year]) %>
     </p>
+    </div>
   </p>
 	<%= f.hidden_field :residence_id, :value => @user.residence.id %>
   <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    $('#recurringOptions').hide();
+  });
+
+  function toggleOptions(){
+    $('#recurringOptions').toggle();
+  }
+
+</script>
 
 <%= link_to 'Back', bills_path %>

@@ -22,6 +22,14 @@
   <b>Is recurring:</b>
   <%=h @bill.is_recurring %>
 </p>
+<% if @bill.is_recurring %>
+  <p>
+    <b>Recurrance: </b> <%= @billrecurrance.recurrance %>
+  </p>
+  <p>
+    <b>End Date: </b> <%= @billrecurrance.end_date %>
+  </p>
+<% end %>
 
 
 <%= link_to 'Edit', edit_bill_path(@bill) %> |
